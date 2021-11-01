@@ -101,8 +101,6 @@ while True:
         try:
             buffer = client_sock.recv(1024)
 
-            #logging.debug("Buffer rx TCP:")
-            #logging.debug(list(buffer))
             logging.debug("<- Rx TCP: " + formatList(buffer))
 
             # Controllo protocol identifier che sia 00 00
@@ -112,9 +110,6 @@ while True:
 
             messageLen = int(buffer[4] << 8) + int(buffer[5])
             slaveId = buffer[6]
-
-            # debug
-            #logging.debug("Len tx 485: " + str(messageLen)) 
 
             responseLen = 0
 
@@ -143,9 +138,6 @@ while True:
                 logging.error("Function code non valido: " + formatList(buffer[7:8]))
                 raise Exception
 
-            # debug
-            #logging.debug("Len rx 485: " + str(responseLen)) 
-
             toSend485 = []
 
             # Il pacchetto da inviare su 485 lo costruisco spazzolando il buffer dal byte 6
@@ -158,8 +150,6 @@ while True:
             toSend485.append(0xFF & crc)
             toSend485.append(0xFF & (crc >> 8))
 
-            #logging.debug("Buffer tx 485")
-            #logging.debug(toSend485)
             logging.debug("-> Tx 485: " + formatList(toSend485))
 
             # ID da gestire in modo personalizzato
@@ -257,9 +247,6 @@ while True:
                 logging.error("Lunghezza pacchetto ricevuto insufficiente")
                 raise Exception
 
-            #logging.debug("Buffer rx 485:")
-            #logging.debug(list(received485))
-
             response = []
             response.append(buffer[0])  #   0001: Transaction Identifier
             response.append(buffer[1])  #   0001: Transaction Identifier
@@ -271,8 +258,6 @@ while True:
             for i in range(0, (responseLen) - 2):
                 response.append(received485[i])
 
-            #logging.debug("Buffer tx TCP:")
-            #logging.debug(response)
             logging.debug("-> Tx TCP: " + formatList(response))
 
             client_sock.send(bytes(response))
