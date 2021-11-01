@@ -105,15 +105,7 @@ while True:
             #logging.debug(list(buffer))
             logging.debug("<- Rx TCP: " + formatList(buffer))
 
-            # Modbus protocol:
-            # buffer[0:2]   0001: Transaction Identifier
-            # buffer[2:4]   0000: Protocol Identifier
-            # buffer[4:6]   0006: Message Length (6 bytes to follow)
-            # buffer[6]     11: The Unit Identifier  (17 = 11 hex)
-            # buffer[7]     03: The Function Code (read Analog Output Holding Registers)
-            # buffer[8:10]  006B: The Data Address of the first register requested. (40108-40001 = 107 =6B hex)
-            # buffer[10:12]  0003: The total number of registers requested. (read 3 registers 40108 to 40110)
-
+            # Controllo protocol identifier che sia 00 00
             if(buffer[2] != 0 or buffer[3] != 0):
                 logging.error("Protocol identifier non valido [" + formatList(buffer[2:4])[:-1] + "], per ModBus TCP deve essere 0")
                 raise Exception
