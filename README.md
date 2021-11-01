@@ -1,5 +1,5 @@
 # Gw python3 ModBus TCP-RTU
-Script python che fa da gw ModBus TCP &lt;-> RTU
+Script python che fa da gw ModBus TCP &lt;-> RTU.
 
           TCP
            |
@@ -11,7 +11,7 @@ Script python che fa da gw ModBus TCP &lt;-> RTU
      |            |                 |
     Slave ID 1   Slave ID 2        Slave ID N
    
-   
+La configurazione avviene tramite il file config.json riportato a seguire.
   
 ## File di configurazione: config.json
 
