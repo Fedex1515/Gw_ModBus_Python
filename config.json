@@ -1,0 +1,23 @@
+{
+    "verbose":"debug",
+    "tcp": {
+        "address": "0.0.0.0",
+        "port": 504
+    },
+    "serial": {
+        "port": "COM5",
+        "baud":115200,
+        "configuration": "8N1",
+        "timeout": 2000,
+
+        "slaves": {
+            "20": {
+                "enable": true,
+                "port": "COM5",
+                "baud":115200,
+                "configuration": "8E1",
+                "timeout": 2000
+            }
+        }
+    }
+}

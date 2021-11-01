@@ -1,0 +1,17 @@
+
+Il gateway quando riceve un pacchetto TCP da inviare sulla 485 esegue una serie di controlli sul pacchetto:
+
+Lato TCP esegue i controlli nell'ordine seguente, in caso di esito negativo chiude la socket senza rispondere al pacchetto ricevuto:
+
+ - Protocol identifier valido (byte 2 e 3 del buffer) == 0
+ - Function code valido 01,02,03,04,05,06,08,15,16
+
+Lato 485 dopo aver inviato un pacchetto esegue i controlli nell'ordine seguente, in 
+caso di esito negativo chiude la socket senza rispondere al pacchetto ricevuto:
+
+ - Se non riceve risposta entro il timeout chiude la socket senza rispondere al pacchetto ricevuto
+ - CRC del pacchetto valido
+ - Lunghezza del pacchetto ricevuto (lunghezza del buffer) valida
+    (se ad esempio vengono richiesti 10 registri il gateway si aspetta una risposta di lunghezza pari a (bytes di header + 10 * 2 bytes di registri)
+
+Superati i controlli precedenti converte il frame RTU ricevuto in TCP e lo invia in risposta al client collegato
