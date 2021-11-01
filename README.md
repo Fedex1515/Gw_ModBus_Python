@@ -8,8 +8,8 @@ Script python che fa da gw ModBus TCP &lt;-> RTU
        -------------
            |
     ----------------------------------- 485 - RTU
-     |         |                 |
-    ID 1     ID 2               ID N
+     |            |                 |
+    Slave ID 1   Slave ID 2        Slave ID N
    
    
   
