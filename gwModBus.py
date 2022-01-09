@@ -39,6 +39,7 @@ import traceback
 import socket
 import crccheck
 import serial
+import time
 from utility import *
 
 config = json.loads(open("config.json", "r").read())
@@ -61,7 +62,18 @@ logging.info("")
 logging.info("Starting server on " + config["tcp"]["address"] + ":" + str(config["tcp"]["port"]))
 
 s = socket.socket()
-s.bind((config["tcp"]["address"], config["tcp"]["port"]))
+isOpen = False
+
+while(not isOpen):
+    try:
+        s.bind((config["tcp"]["address"], config["tcp"]["port"]))
+        isOpen = True
+
+    except Exception as err:
+        logging.error(err)
+        logging.info("Retry in 10 sec")
+        time.sleep(10)
+
 s.listen(5)
 s.settimeout(1)
 
@@ -226,6 +238,7 @@ while True:
                         printSerialConfig(ser)
 
             #ser.open() # Gia' aperta dal blocco precedente se contiene il parametro port
+            ser.flush()
             ser.write(toSend485)
             
             received485 = ser.read(responseLen)
