@@ -1,10 +1,10 @@
-# Gw python3 ModBus TCP-RTU
+# Gw python3 Modbus TCP-RTU
 Script python che fa da gw ModBus TCP &lt;-> RTU.
 
           TCP
            |
        -------------
-       | GW ModBus |
+       | GW Modbus |
        -------------
            |
     ----------------------------------- 485 - RTU
